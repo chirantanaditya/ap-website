@@ -1,26 +1,95 @@
 @import "tailwindcss";
 
+/* ─── Design tokens ────────────────────────────────────────────────────────── */
+/* Assets folder (ap-website/assets/) is empty — using fallback wedding palette.
+   Replace these values once design assets are provided.                        */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --cream:        #FAF6EF;
+  --cream-dark:   #F0E8DA;
+  --maroon:       #7C1D2E;
+  --maroon-light: #9E2A3F;
+  --gold:         #B8892A;
+  --gold-light:   #D4A84B;
+  --text-dark:    #1C0A00;
+  --text-mid:     #6B4B38;
+  --text-light:   #9B7960;
+  --border:       #E2CDBC;
+  --white:        #FFFFFF;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Colors */
+  --color-cream:        var(--cream);
+  --color-cream-dark:   var(--cream-dark);
+  --color-maroon:       var(--maroon);
+  --color-maroon-light: var(--maroon-light);
+  --color-gold:         var(--gold);
+  --color-gold-light:   var(--gold-light);
+  --color-text-dark:    var(--text-dark);
+  --color-text-mid:     var(--text-mid);
+  --color-text-light:   var(--text-light);
+  --color-border:       var(--border);
+
+  /* Fonts */
+  --font-heading: var(--font-cormorant);
+  --font-body:    var(--font-dm-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base ─────────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 8rem; /* reserve space for fixed nav on anchor jump */
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--cream);
+  color: var(--text-dark);
+  font-family: var(--font-dm-sans), Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Typography helpers ────────────────────────────────────────────────────── */
+.font-heading {
+  font-family: var(--font-cormorant), Georgia, serif;
+}
+
+/* ─── Ornament divider ──────────────────────────────────────────────────────── */
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--gold);
+  width: 100%;
+}
+
+.ornament::before,
+.ornament::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* ─── Nav anchor offset (fixed nav height + gap) ──────────────────────────────── */
+[id="schedule"],
+[id="venues"],
+[id="rsvp"] {
+  scroll-margin-top: 8rem; /* 128px — clears fixed nav */
+}
+
+/* ─── Reduced motion ────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
