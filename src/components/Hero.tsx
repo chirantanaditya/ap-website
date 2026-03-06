@@ -1,8 +1,28 @@
 'use client'
 
 import { motion, useReducedMotion } from 'motion/react'
+import { CardCarousel } from '@/components/ui/card-carousel'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
+
+const CAROUSEL_PHOTOS = [
+  '2.jpeg',
+  '3.jpeg',
+  '4.jpeg',
+  '5.jpeg',
+  '11.jpeg',
+  '20.jpeg',
+  '36.jpeg',
+  '44.jpeg',
+  '50.jpeg',
+  '98.jpeg',
+  '100.jpeg',
+  'b.jpeg',
+  'WhatsApp Image 2026-03-06 at 10.11.34 PM.jpeg',
+].map((name) => ({
+  src: `/photos/${encodeURIComponent(name)}`,
+  alt: 'Wedding celebration',
+}))
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 28 },
@@ -13,11 +33,11 @@ const fadeUp = (delay = 0) => ({
 function Ornament({ className = '' }: { className?: string }) {
   return (
     <div className={`flex items-center gap-3 text-gold ${className}`}>
-      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gold to-transparent opacity-60" />
+      <div className="flex-1 h-px bg-linear-to-r from-transparent via-gold to-transparent opacity-60" />
       <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
         <path d="M8 0 L9.5 6.5 L16 8 L9.5 9.5 L8 16 L6.5 9.5 L0 8 L6.5 6.5 Z" />
       </svg>
-      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gold to-transparent opacity-60" />
+      <div className="flex-1 h-px bg-linear-to-r from-transparent via-gold to-transparent opacity-60" />
     </div>
   )
 }
@@ -29,10 +49,6 @@ export default function Hero() {
     reduced
       ? {}
       : { ...fadeUp(delay), viewport: { once: true } }
-
-  function scrollToRSVP() {
-    document.getElementById('rsvp')?.scrollIntoView({ behavior: 'smooth' })
-  }
 
   return (
     <section
@@ -88,7 +104,7 @@ export default function Hero() {
           className="font-heading text-lg sm:text-xl text-text-mid font-light italic max-w-xs leading-relaxed"
           {...motionProps(0.25)}
         >
-          are inviting you to celebrate their marriage
+          invite you to celebrate their wedding.
         </motion.p>
 
         {/* Ornament */}
@@ -109,22 +125,20 @@ export default function Hero() {
           </p>
         </motion.div>
 
-        {/* CTA */}
-        <motion.div className="mt-4 flex flex-col sm:flex-row gap-3 w-full max-w-xs" {...motionProps(0.45)}>
-          <button
-            onClick={scrollToRSVP}
-            className="flex-1 min-h-[52px] bg-maroon text-cream font-body font-medium text-sm tracking-[0.12em] uppercase rounded-full px-8 py-3.5 transition-all duration-300 hover:bg-maroon-light active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-maroon focus-visible:outline-offset-2"
-          >
-            RSVP Now
-          </button>
-          <a
-            href="#schedule"
-            className="flex-1 min-h-[52px] flex items-center justify-center border border-maroon text-maroon font-body font-medium text-sm tracking-[0.12em] uppercase rounded-full px-8 py-3.5 transition-all duration-300 hover:bg-maroon/5 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-maroon focus-visible:outline-offset-2"
-          >
-            See Schedule
-          </a>
-        </motion.div>
+      </div>
 
+      {/* Photo carousel - full width */}
+      <motion.div
+        className="mt-6 w-screen max-w-none ml-[calc(-50vw+50%)]"
+        {...motionProps(0.4)}
+      >
+        <CardCarousel
+          images={CAROUSEL_PHOTOS}
+          autoplayDelay={2500}
+        />
+      </motion.div>
+
+      <div className="relative z-10 w-full max-w-lg mx-auto text-center flex flex-col items-center gap-6">
         {/* Scroll hint */}
         <motion.div
           className="mt-6 flex flex-col items-center gap-1.5 text-text-light"

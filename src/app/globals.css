@@ -5,17 +5,26 @@
    Replace these values once design assets are provided.                        */
 
 :root {
-  --cream:        #FAF6EF;
-  --cream-dark:   #F0E8DA;
+  --cream:        #FFFFFF;
+  --cream-dark:   #FFFFFF;
   --maroon:       #7C1D2E;
   --maroon-light: #9E2A3F;
   --gold:         #B8892A;
   --gold-light:   #D4A84B;
-  --text-dark:    #1C0A00;
-  --text-mid:     #6B4B38;
-  --text-light:   #9B7960;
+  --text-dark:    #814112;
+  --text-mid:     #814112;
+  --text-light:   #814112;
   --border:       #E2CDBC;
   --white:        #FFFFFF;
+  /* shadcn/ui compatibility */
+  --primary:      var(--maroon);
+  --primary-foreground: var(--cream);
+  --secondary:    var(--cream-dark);
+  --secondary-foreground: var(--text-dark);
+  --foreground:   var(--text-dark);
+  --ring:         var(--maroon);
+  --destructive:  #dc2626;
+  --destructive-foreground: #fff;
 }
 
 @theme inline {
@@ -49,6 +58,11 @@ html {
 
 body {
   background-color: var(--cream);
+  background-image: url('/bougainvillea-frame.png');
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-attachment: fixed;
   color: var(--text-dark);
   font-family: var(--font-dm-sans), Arial, sans-serif;
   font-size: 16px;
@@ -84,6 +98,23 @@ body {
 [id="venues"],
 [id="rsvp"] {
   scroll-margin-top: 8rem; /* 128px — clears fixed nav */
+}
+
+/* ─── Infinite photo carousel ────────────────────────────────────────────────── */
+@keyframes carousel {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-carousel {
+  animation: carousel 25s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-carousel {
+    animation-duration: 0.01ms;
+  }
 }
 
 /* ─── Reduced motion ────────────────────────────────────────────────────────── */

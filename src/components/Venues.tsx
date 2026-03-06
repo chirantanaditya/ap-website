@@ -15,7 +15,7 @@ type Venue = {
 const venues: Venue[] = [
   {
     id: 'main',
-    title: 'Sangeet & Wedding Venue',
+    title: 'Venue: Cherish Ballrooms',
     subtitle: 'Delhi',
     description: 'The main celebration venue hosting the Sangeet Night and the Wedding ceremonies.',
     mapUrl: 'https://maps.app.goo.gl/AY1pt43ew5eQ8ejh9?g_st=ic',
@@ -24,7 +24,7 @@ const venues: Venue[] = [
   },
   {
     id: 'haldi-groom',
-    title: "Groom's Haldi Venue",
+    title: "Venue: Home",
     subtitle: 'Delhi',
     description: "The venue for the Groom's Haldi celebrations.",
     mapUrl: 'https://maps.app.goo.gl/W2ZacHZtYRvZxZGu8?g_st=ic',

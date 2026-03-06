@@ -85,7 +85,7 @@ export default function RSVPForm() {
   return (
     <section
       id="rsvp"
-      className="px-5 pt-[8rem] pb-16 sm:pt-32 sm:pb-20 max-w-2xl mx-auto"
+      className="px-5 pt-32 pb-16 sm:pt-32 sm:pb-20 max-w-2xl mx-auto"
       aria-label="RSVP form"
     >
       {/* Heading */}
@@ -202,7 +202,7 @@ export default function RSVPForm() {
                 {[{ value: 'yes', label: 'Yes, please!' }, { value: 'no', label: "No, I'm sorted" }].map((opt) => (
                   <label
                     key={opt.value}
-                    className="flex items-center justify-center gap-2.5 min-h-[52px] rounded-xl border border-border bg-cream cursor-pointer hover:border-maroon/40 hover:bg-cream-dark transition-colors duration-150 px-4 py-3 text-sm font-body font-medium text-text-dark has-[:checked]:bg-maroon/5 has-[:checked]:border-maroon has-[:checked]:text-maroon"
+                    className="flex items-center justify-center gap-2.5 min-h-[52px] rounded-xl border border-border bg-cream cursor-pointer hover:border-maroon/40 hover:bg-cream-dark transition-colors duration-150 px-4 py-3 text-sm font-body font-medium text-text-dark has-checked:bg-maroon/5 has-checked:border-maroon has-checked:text-maroon"
                   >
                     <input
                       type="radio"
