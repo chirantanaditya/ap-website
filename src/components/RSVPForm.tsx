@@ -17,7 +17,7 @@ function InputLabel({ htmlFor, required, children }: { htmlFor: string; required
   return (
     <label htmlFor={htmlFor} className="block text-sm font-body font-medium text-text-dark mb-1.5">
       {children}
-      {required && <span className="text-maroon ml-0.5" aria-label="required">*</span>}
+      {required && <span className="text-text-dark ml-0.5" aria-label="required">*</span>}
     </label>
   )
 }
@@ -49,7 +49,7 @@ function SuccessView({ message }: { message: string }) {
         </svg>
       </div>
       <div>
-        <h3 className="font-heading text-2xl sm:text-3xl italic text-maroon font-light mb-2">
+        <h3 className="font-heading text-2xl sm:text-3xl italic text-text-dark font-light mb-2">
           See you at the celebrations!
         </h3>
         <p className="text-text-mid font-body text-sm leading-relaxed max-w-xs mx-auto">
@@ -93,7 +93,7 @@ export default function RSVPForm() {
         <p className="text-xs tracking-[0.25em] uppercase text-gold font-body mb-3">
           Kindly respond by 20 April
         </p>
-        <h2 className="font-heading text-4xl sm:text-5xl italic text-maroon font-light mb-3">
+        <h2 className="font-heading text-4xl sm:text-5xl italic text-text-dark font-light mb-3">
           RSVP
         </h2>
         <p className="text-sm text-text-mid font-body max-w-sm mx-auto">
@@ -176,10 +176,10 @@ export default function RSVPForm() {
                       type="checkbox"
                       name="events"
                       value={ev.id}
-                      className="mt-0.5 w-5 h-5 rounded border-border text-maroon accent-maroon cursor-pointer shrink-0 focus-visible:outline-2 focus-visible:outline-maroon"
+                      className="mt-0.5 w-5 h-5 rounded border-border text-text-dark accent-maroon cursor-pointer shrink-0 focus-visible:outline-2 focus-visible:outline-maroon"
                     />
                     <div>
-                      <p className="text-sm font-body font-medium text-text-dark group-hover:text-maroon transition-colors leading-tight">
+                      <p className="text-sm font-body font-medium text-text-dark group-hover:text-text-dark transition-colors leading-tight">
                         {ev.label}
                       </p>
                       <p className="text-xs text-text-light font-body mt-0.5">{ev.date}</p>
@@ -193,7 +193,7 @@ export default function RSVPForm() {
             <fieldset>
               <legend className="text-sm font-body font-medium text-text-dark mb-1">
                 Do you need accommodation?
-                <span className="text-maroon ml-0.5" aria-label="required">*</span>
+                <span className="text-text-dark ml-0.5" aria-label="required">*</span>
               </legend>
               <p className="text-xs text-text-light font-body mb-3">
                 Check-in: 28 April (Tuesday) · Check-out: 1 May (Friday)
@@ -202,7 +202,7 @@ export default function RSVPForm() {
                 {[{ value: 'yes', label: 'Yes, please!' }, { value: 'no', label: "No, I'm sorted" }].map((opt) => (
                   <label
                     key={opt.value}
-                    className="flex items-center justify-center gap-2.5 min-h-[52px] rounded-xl border border-border bg-cream cursor-pointer hover:border-maroon/40 hover:bg-cream-dark transition-colors duration-150 px-4 py-3 text-sm font-body font-medium text-text-dark has-checked:bg-maroon/5 has-checked:border-maroon has-checked:text-maroon"
+                    className="flex items-center justify-center gap-2.5 min-h-[52px] rounded-xl border border-border bg-cream cursor-pointer hover:border-maroon/40 hover:bg-cream-dark transition-colors duration-150 px-4 py-3 text-sm font-body font-medium text-text-dark has-checked:bg-maroon/5 has-checked:border-maroon has-checked:text-text-dark"
                   >
                     <input
                       type="radio"
@@ -249,7 +249,7 @@ export default function RSVPForm() {
             </button>
 
             <p className="text-xs text-text-light font-body text-center">
-              Fields marked <span className="text-maroon">*</span> are required.
+              Fields marked <span className="text-text-dark">*</span> are required.
             </p>
           </form>
         )}

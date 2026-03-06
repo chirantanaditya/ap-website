@@ -54,7 +54,7 @@ export default function Nav() {
             'flex items-center justify-center gap-2 min-h-[44px] min-w-[44px] sm:min-w-0 sm:px-4 rounded-full font-body text-sm font-medium transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-maroon focus-visible:outline-offset-2 ' +
             (highlight
               ? 'bg-gold text-white hover:bg-gold-light'
-              : 'text-maroon hover:bg-cream-dark')
+              : 'text-text-dark hover:bg-cream-dark')
 
           if (id === 'home') {
             return (

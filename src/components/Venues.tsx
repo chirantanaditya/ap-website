@@ -111,7 +111,7 @@ export default function Venues() {
         <p className="text-xs tracking-[0.25em] uppercase text-gold font-body mb-3">
           Where to find us
         </p>
-        <h2 className="font-heading text-4xl sm:text-5xl italic text-maroon font-light">
+        <h2 className="font-heading text-4xl sm:text-5xl italic text-text-dark font-light">
           Venues
         </h2>
       </motion.div>
@@ -128,7 +128,7 @@ export default function Venues() {
               {/* Header */}
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <h3 className="font-heading text-xl sm:text-2xl font-medium text-maroon leading-snug">
+                  <h3 className="font-heading text-xl sm:text-2xl font-medium text-text-dark leading-snug">
                     {venue.title}
                   </h3>
                   <p className="flex items-center gap-1.5 text-sm text-text-mid font-body mt-1">
@@ -161,7 +161,7 @@ export default function Venues() {
                   href={venue.mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 min-h-[44px] text-sm font-body font-medium text-maroon border border-maroon rounded-full px-5 py-2.5 w-full sm:w-auto justify-center transition-all duration-200 hover:bg-maroon hover:text-cream active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-maroon focus-visible:outline-offset-2"
+                  className="inline-flex items-center gap-2 min-h-[44px] text-sm font-body font-medium text-text-dark border border-maroon rounded-full px-5 py-2.5 w-full sm:w-auto justify-center transition-all duration-200 hover:bg-maroon hover:text-cream active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-maroon focus-visible:outline-offset-2"
                 >
                   <MapPinIcon />
                   {venue.mapLabel}

@@ -82,7 +82,7 @@ export default function Schedule() {
         <p className="text-xs tracking-[0.25em] uppercase text-gold font-body mb-3">
           The Celebrations
         </p>
-        <h2 className="font-heading text-4xl sm:text-5xl italic text-maroon font-light">
+        <h2 className="font-heading text-4xl sm:text-5xl italic text-text-dark font-light">
           Schedule
         </h2>
       </motion.div>
@@ -99,7 +99,7 @@ export default function Schedule() {
             <div className="flex items-center gap-4 px-5 py-4 bg-cream-dark border-b border-border">
               <span className="text-2xl" aria-hidden>{card.emoji}</span>
               <div>
-                <p className="font-heading text-xl sm:text-2xl font-medium text-maroon leading-none">
+                <p className="font-heading text-xl sm:text-2xl font-medium text-text-dark leading-none">
                   {card.date}
                 </p>
                 <p className="text-xs text-text-light uppercase tracking-widest font-body mt-0.5">

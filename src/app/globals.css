@@ -58,11 +58,6 @@ html {
 
 body {
   background-color: var(--cream);
-  background-image: url('/bougainvillea-frame.png');
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-attachment: fixed;
   color: var(--text-dark);
   font-family: var(--font-dm-sans), Arial, sans-serif;
   font-size: 16px;

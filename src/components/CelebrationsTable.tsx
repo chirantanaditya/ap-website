@@ -29,7 +29,7 @@ export default function CelebrationsTable({ rows }: Props) {
         <p className="text-xs tracking-[0.25em] uppercase text-gold font-body mb-3">
           The Celebrations
         </p>
-        <h2 className="font-heading text-4xl sm:text-5xl italic text-maroon font-light">
+        <h2 className="font-heading text-4xl sm:text-5xl italic text-text-dark font-light">
           Schedule
         </h2>
       </motion.div>
@@ -55,7 +55,7 @@ export default function CelebrationsTable({ rows }: Props) {
                 <span className="text-xs font-body text-text-light">·</span>
                 <span className="text-xs font-body text-text-mid">{row.time}</span>
               </div>
-              <h3 className="font-heading text-xl sm:text-2xl font-medium text-maroon leading-tight mb-3">
+              <h3 className="font-heading text-xl sm:text-2xl font-medium text-text-dark leading-tight mb-3">
                 {row.event}
               </h3>
               <p className="text-sm font-body text-text-mid leading-relaxed">
@@ -64,7 +64,7 @@ export default function CelebrationsTable({ rows }: Props) {
                     href={row.venueUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-maroon font-medium hover:text-maroon-light transition-colors focus-visible:outline-2 focus-visible:outline-maroon focus-visible:outline-offset-2 rounded"
+                    className="inline-flex items-center gap-1.5 text-text-dark font-medium hover:text-text-dark-light transition-colors focus-visible:outline-2 focus-visible:outline-maroon focus-visible:outline-offset-2 rounded"
                   >
                     {row.venue}
                     <ExternalLink className="w-3.5 h-3.5 shrink-0" strokeWidth={2} aria-hidden />

@@ -12,7 +12,7 @@ export default function Footer() {
       <div className="absolute inset-0 bg-cream/85" aria-hidden />
 
       <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center gap-4">
-        <p className="font-heading text-3xl italic text-maroon font-light">
+        <p className="font-heading text-3xl italic text-text-dark font-light">
           Purnima &amp; Anurag
         </p>
         <p className="text-xs tracking-[0.2em] uppercase text-text-mid font-body">

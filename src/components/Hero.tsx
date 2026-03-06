@@ -85,7 +85,7 @@ export default function Hero() {
           className="flex flex-col items-center gap-1"
           {...motionProps(0.15)}
         >
-          <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl font-light italic text-maroon leading-none tracking-wide">
+          <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl font-light italic text-text-dark leading-none tracking-wide">
             Purnima
           </h1>
           <span
@@ -94,7 +94,7 @@ export default function Hero() {
           >
             &amp;
           </span>
-          <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl font-light italic text-maroon leading-none tracking-wide">
+          <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl font-light italic text-text-dark leading-none tracking-wide">
             Anurag
           </h1>
         </motion.div>
