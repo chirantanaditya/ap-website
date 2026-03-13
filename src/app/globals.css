@@ -99,7 +99,8 @@ body {
 /* ─── Nav anchor offset (fixed nav height + gap) ──────────────────────────────── */
 [id="schedule"],
 [id="venues"],
-[id="rsvp"] {
+[id="rsvp"],
+[id="team"] {
   scroll-margin-top: 8rem; /* 128px — clears fixed nav */
 }
 

@@ -11,6 +11,7 @@ export default function TeamChoice() {
 
   return (
     <section
+      id="team"
       className="px-5 py-16 sm:py-20 max-w-lg mx-auto"
       aria-label="Choose your team"
     >

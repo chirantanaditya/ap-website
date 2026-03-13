@@ -21,9 +21,26 @@ export type RSVPEntry = {
   message: string
 }
 
-// NOTE: File-based storage works for local / self-hosted deployments.
-// For Vercel or other serverless platforms, replace with a database
-// (e.g. Vercel Postgres, Neon, PlanetScale) as the file system is ephemeral.
+const SUCCESS_MESSAGE = (name: string) =>
+  `Thank you, ${name}! Your RSVP has been received. We can't wait to celebrate with you! 🎉`
+
+/** Append one row to Google Sheet via Apps Script web app URL */
+async function appendToGoogleSheet(entry: RSVPEntry): Promise<boolean> {
+  const url = process.env.GOOGLE_SHEET_WEB_APP_URL
+  if (!url?.trim()) return false
+
+  try {
+    const res = await fetch(url.trim(), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(entry),
+    })
+    return res.ok
+  } catch {
+    return false
+  }
+}
+
 export async function submitRSVP(
   _prevState: RSVPState,
   formData: FormData,
@@ -59,6 +76,22 @@ export async function submitRSVP(
     message,
   }
 
+  // 1. Try Google Sheet if URL is set
+  if (process.env.GOOGLE_SHEET_WEB_APP_URL) {
+    const sheetOk = await appendToGoogleSheet(entry)
+    if (sheetOk) {
+      return { success: true, message: SUCCESS_MESSAGE(name) }
+    }
+    // If sheet fails and we're on Vercel/serverless, don't fall back to file
+    if (process.env.VERCEL) {
+      return {
+        success: false,
+        message: 'Something went wrong. Please try again or reach out to us directly.',
+      }
+    }
+  }
+
+  // 2. Fallback: file-based storage (local / self-hosted)
   const dataDir = path.join(process.cwd(), 'data')
   const filePath = path.join(dataDir, 'rsvps.json')
 
@@ -81,7 +114,7 @@ export async function submitRSVP(
 
     return {
       success: true,
-      message: `Thank you, ${name}! Your RSVP has been received. We can't wait to celebrate with you! 🎉`,
+      message: SUCCESS_MESSAGE(name),
     }
   } catch (err) {
     console.error('RSVP write error:', err)
