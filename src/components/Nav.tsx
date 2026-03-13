@@ -20,7 +20,7 @@ const navItems: NavItem[] = [
   { id: 'schedule', href: '/#team', label: 'Schedule', Icon: Calendar },
   { id: 'registry', href: 'https://withjoy.com/anurag-and-purnima/registry', label: 'Registry', Icon: Gift },
   { id: 'instagram', href: 'https://www.instagram.com/purnimanurag/', label: 'Instagram', Icon: Instagram },
-  { id: 'rsvp', href: '/team-bride#rsvp', label: 'RSVP', Icon: Heart, highlight: true },
+  { id: 'rsvp', href: '/rsvp', label: 'RSVP', Icon: Heart, highlight: true },
 ]
 
 export default function Nav() {
@@ -31,7 +31,7 @@ export default function Nav() {
   function getHref(item: NavItem): string {
     if (item.id === 'home') return '/'
     if (item.id === 'schedule') return pathname === '/' ? '#team' : '/#team'
-    if (item.id === 'rsvp') return isTeamPage ? '#rsvp' : '/team-bride#rsvp'
+    if (item.id === 'rsvp') return '/rsvp'
     if (item.id === 'registry' || item.id === 'instagram') return item.href
     return item.href
   }
@@ -71,6 +71,15 @@ export default function Nav() {
           if (id === 'schedule' && to === '/#team') {
             return (
               <Link key={id} href="/#team" className={linkClass} aria-label={label}>
+                <Icon className="shrink-0 w-5 h-5 sm:w-4 sm:h-4" strokeWidth={1.75} aria-hidden />
+                <span className="hidden sm:inline">{label}</span>
+              </Link>
+            )
+          }
+
+          if (id === 'rsvp') {
+            return (
+              <Link key={id} href="/rsvp" className={linkClass} aria-label={label}>
                 <Icon className="shrink-0 w-5 h-5 sm:w-4 sm:h-4" strokeWidth={1.75} aria-hidden />
                 <span className="hidden sm:inline">{label}</span>
               </Link>
