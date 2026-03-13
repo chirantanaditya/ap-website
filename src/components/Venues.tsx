@@ -26,10 +26,10 @@ const venues: Venue[] = [
     id: 'haldi-groom',
     title: "Venue: Home",
     subtitle: 'Delhi',
-    description: "The venue for the Groom's Haldi celebrations.",
+    description: "The venue for the Haldi Soirée celebrations.",
     mapUrl: 'https://maps.app.goo.gl/W2ZacHZtYRvZxZGu8?g_st=ic',
     mapLabel: 'View on Google Maps',
-    events: ["Groom's Haldi – 29 Apr, 5 PM Onwards"],
+    events: ["Haldi Soirée – 29 Apr, 5 PM Onwards"],
   },
   {
     id: 'haldi-bride',
@@ -37,7 +37,7 @@ const venues: Venue[] = [
     subtitle: "Sharma's House, Mehrauli",
     description: "All Bride-side ceremonies will be hosted at the Sharma's family residence in Mehrauli.",
     events: [
-      "Bride's Haldi – 29 Apr, 10 AM Onwards",
+      "Haldi – 29 Apr, 10 AM Onwards",
       'Mehendi – 29 Apr, 4 PM Onwards',
     ],
   },

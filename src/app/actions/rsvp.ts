@@ -11,10 +11,12 @@ export type RSVPState = {
 export type RSVPEntry = {
   id: string
   timestamp: string
+  team: 'bride' | 'groom'
   name: string
   phone: string
   guests: number
-  events: string[]
+  arrivalDate: string
+  arrivalTime: string
   accommodation: boolean
   message: string
 }
@@ -28,23 +30,31 @@ export async function submitRSVP(
 ): Promise<RSVPState> {
   const name = (formData.get('name') as string | null)?.trim()
   const phone = (formData.get('phone') as string | null)?.trim() ?? ''
+  const teamRaw = formData.get('team') as string | null
+  const team = teamRaw === 'groom' ? 'groom' : 'bride'
   const guestsRaw = formData.get('guests') as string | null
   const guests = Math.max(1, Math.min(20, parseInt(guestsRaw ?? '1', 10) || 1))
-  const events = formData.getAll('events') as string[]
+  const arrivalDate = (formData.get('arrivalDate') as string | null)?.trim() ?? ''
+  const arrivalTime = (formData.get('arrivalTime') as string | null)?.trim() ?? ''
   const accommodation = formData.get('accommodation') === 'yes'
   const message = (formData.get('message') as string | null)?.trim() ?? ''
 
   if (!name) {
     return { success: false, message: 'Please enter your name.' }
   }
+  if (!arrivalDate || !arrivalTime) {
+    return { success: false, message: 'Please enter your date and time of arrival.' }
+  }
 
   const entry: RSVPEntry = {
     id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
     timestamp: new Date().toISOString(),
+    team,
     name,
     phone,
     guests,
-    events,
+    arrivalDate,
+    arrivalTime,
     accommodation,
     message,
   }

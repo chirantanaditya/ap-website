@@ -45,6 +45,13 @@
   --font-body:    var(--font-dm-sans);
 }
 
+/* bg-cream (and variants like bg-cream/90): cream color + repeating pattern */
+[class*='bg-cream'] {
+  background-image: url('/bg-pattern.png');
+  background-repeat: repeat;
+  background-position: 0 0;
+}
+
 /* ─── Base ─────────────────────────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -57,6 +64,7 @@ html {
 }
 
 body {
+  position: relative;
   background-color: var(--cream);
   color: var(--text-dark);
   font-family: var(--font-dm-sans), Arial, sans-serif;

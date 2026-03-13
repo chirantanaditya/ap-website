@@ -1,15 +1,19 @@
 'use client'
 
+import { useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
-import { ExternalLink } from 'lucide-react'
+import { ExternalLink, X } from 'lucide-react'
 import type { ScheduleRow } from '@/data/schedule'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
+const SANGEET_DRESS_CODE_IMAGE = '/sangeet-dress-code.jpeg'
+const BARAAT_DRESS_CODE_IMAGE = '/baraat-dress-code.jpeg'
 
 type Props = { rows: ScheduleRow[] }
 
 export default function CelebrationsTable({ rows }: Props) {
   const reduced = useReducedMotion()
+  const [dressCodeImage, setDressCodeImage] = useState<string | null>(null)
 
   return (
     <section
@@ -73,10 +77,55 @@ export default function CelebrationsTable({ rows }: Props) {
                   <span>{row.venue}</span>
                 )}
               </p>
+              {(row.event === 'Sangeet' || row.event === 'Baraat' || row.event === 'Varmala') && (
+                <p className="text-sm font-body text-text-mid mt-2">
+                  <button
+                    type="button"
+                    onClick={() => setDressCodeImage(
+                      row.event === 'Sangeet' ? SANGEET_DRESS_CODE_IMAGE : BARAAT_DRESS_CODE_IMAGE
+                    )}
+                    className="inline-flex items-center gap-1.5 text-text-dark font-medium hover:underline focus-visible:outline-2 focus-visible:outline-maroon focus-visible:outline-offset-2 rounded"
+                  >
+                    Dress Code
+                  </button>
+                </p>
+              )}
             </div>
           </motion.article>
         ))}
       </div>
+
+      {/* Dress code image modal */}
+      {dressCodeImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70"
+          onClick={() => setDressCodeImage(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Dress code"
+        >
+          <div
+            className="relative max-h-[90vh] w-full max-w-lg bg-white rounded-xl overflow-hidden shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setDressCodeImage(null)}
+              className="absolute top-3 right-3 z-10 p-2 rounded-full bg-white/90 hover:bg-white text-text-dark focus-visible:outline-2 focus-visible:outline-maroon"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" strokeWidth={2} />
+            </button>
+            <div className="relative w-full max-h-[85vh] overflow-auto p-4 pt-14">
+              <img
+                src={dressCodeImage}
+                alt="Dress code"
+                className="w-full h-auto object-contain"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }

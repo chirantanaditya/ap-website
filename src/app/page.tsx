@@ -4,7 +4,7 @@ import Nav from '@/components/Nav'
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-cream">
+    <main className="min-h-screen bg-cream/90">
       <Nav />
 
       {/* Content — pt clears the floating nav pill */}

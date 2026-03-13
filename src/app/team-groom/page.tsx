@@ -12,13 +12,13 @@ export const metadata = {
 
 export default function TeamGroomPage() {
   return (
-    <main className="min-h-screen bg-cream">
+    <main className="min-h-screen bg-cream/90">
       <Nav />
       <ScrollToHash />
       <div className="pt-20 sm:pt-24">
         <CelebrationsTable rows={GROOM_SCHEDULE} />
         <SectionDivider />
-        <RSVPForm />
+        <RSVPForm team="groom" />
       </div>
     </main>
   )

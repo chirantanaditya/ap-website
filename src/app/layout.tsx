@@ -36,10 +36,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cormorant.variable} ${dmSans.variable}`}>
       <body className="antialiased bg-cream text-text-dark font-body">
-        <SmoothScroll>
-          {children}
-          <Footer />
-        </SmoothScroll>
+        <div className="relative z-10 min-h-screen">
+          <SmoothScroll>
+            {children}
+            <Footer />
+          </SmoothScroll>
+        </div>
       </body>
     </html>
   )

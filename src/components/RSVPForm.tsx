@@ -6,13 +6,6 @@ import { submitRSVP, type RSVPState } from '@/app/actions/rsvp'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
-const EVENTS = [
-  { id: 'sangeet', label: 'Sangeet Night', date: 'Tue, 28 Apr – 7 PM Onwards' },
-  { id: 'haldi', label: 'Haldi', date: 'Wed, 29 Apr' },
-  { id: 'mehendi', label: 'Mehendi', date: "Wed, 29 Apr – Bride's Side" },
-  { id: 'wedding', label: 'Baraat & Wedding', date: 'Thu, 30 Apr – From 5 PM' },
-]
-
 function InputLabel({ htmlFor, required, children }: { htmlFor: string; required?: boolean; children: React.ReactNode }) {
   return (
     <label htmlFor={htmlFor} className="block text-sm font-body font-medium text-text-dark mb-1.5">
@@ -60,7 +53,11 @@ function SuccessView({ message }: { message: string }) {
   )
 }
 
-export default function RSVPForm() {
+export type RSVPFormProps = {
+  team: 'bride' | 'groom'
+}
+
+export default function RSVPForm({ team }: RSVPFormProps) {
   const [state, formAction, isPending] = useActionState<RSVPState, FormData>(submitRSVP, null)
   const formRef = useRef<HTMLFormElement>(null)
   const reduced = useReducedMotion()
@@ -129,16 +126,17 @@ export default function RSVPForm() {
             noValidate
             className="px-5 py-6 flex flex-col gap-6"
           >
+            <input type="hidden" name="team" value={team} />
             {/* Name */}
             <div>
               <InputLabel htmlFor="name" required>Your Full Name</InputLabel>
-              <TextInput id="name" name="name" placeholder="e.g. Rahul Sharma" required autoComplete="name" />
+              <TextInput id="name" name="name" placeholder="e.g. Michael Scott" required autoComplete="name" />
             </div>
 
             {/* Phone */}
             <div>
               <InputLabel htmlFor="phone">Phone Number <span className="text-text-light font-normal">(optional)</span></InputLabel>
-              <TextInput id="phone" name="phone" type="tel" placeholder="+91 98765 43210" autoComplete="tel" />
+              <TextInput id="phone" name="phone" type="tel" placeholder="9999999999" autoComplete="tel" />
             </div>
 
             {/* Guests */}
@@ -159,35 +157,31 @@ export default function RSVPForm() {
               </select>
             </div>
 
-            {/* Events */}
-            <fieldset>
-              <legend className="text-sm font-body font-medium text-text-dark mb-3">
-                Which celebrations will you attend?
-              </legend>
-              <div className="flex flex-col gap-3">
-                {EVENTS.map((ev) => (
-                  <label
-                    key={ev.id}
-                    htmlFor={`event-${ev.id}`}
-                    className="flex items-start gap-3 p-3.5 rounded-xl border border-border bg-cream cursor-pointer hover:border-maroon/40 hover:bg-cream-dark transition-colors duration-150 group"
-                  >
-                    <input
-                      id={`event-${ev.id}`}
-                      type="checkbox"
-                      name="events"
-                      value={ev.id}
-                      className="mt-0.5 w-5 h-5 rounded border-border text-text-dark accent-maroon cursor-pointer shrink-0 focus-visible:outline-2 focus-visible:outline-maroon"
-                    />
-                    <div>
-                      <p className="text-sm font-body font-medium text-text-dark group-hover:text-text-dark transition-colors leading-tight">
-                        {ev.label}
-                      </p>
-                      <p className="text-xs text-text-light font-body mt-0.5">{ev.date}</p>
-                    </div>
-                  </label>
-                ))}
+            {/* Date and time of arrival */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <InputLabel htmlFor="arrivalDate" required>Date of arrival</InputLabel>
+                <input
+                  id="arrivalDate"
+                  name="arrivalDate"
+                  type="date"
+                  required
+                  min="2025-04-28"
+                  max="2025-05-01"
+                  className="w-full min-h-[52px] rounded-xl border border-border bg-white px-4 py-3 text-base text-text-dark font-body focus:outline-none focus:ring-2 focus:ring-maroon/40 focus:border-maroon transition-colors duration-200"
+                />
               </div>
-            </fieldset>
+              <div>
+                <InputLabel htmlFor="arrivalTime" required>Time of arrival</InputLabel>
+                <input
+                  id="arrivalTime"
+                  name="arrivalTime"
+                  type="time"
+                  required
+                  className="w-full min-h-[52px] rounded-xl border border-border bg-white px-4 py-3 text-base text-text-dark font-body focus:outline-none focus:ring-2 focus:ring-maroon/40 focus:border-maroon transition-colors duration-200"
+                />
+              </div>
+            </div>
 
             {/* Accommodation */}
             <fieldset>

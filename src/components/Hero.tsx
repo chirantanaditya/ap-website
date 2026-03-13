@@ -6,19 +6,46 @@ import { CardCarousel } from '@/components/ui/card-carousel'
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
 const CAROUSEL_PHOTOS = [
+  '1.jpeg',
   '2.jpeg',
-  '3.jpeg',
-  '4.jpeg',
   '5.jpeg',
-  '11.jpeg',
-  '20.jpeg',
-  '36.jpeg',
-  '44.jpeg',
-  '50.jpeg',
-  '98.jpeg',
-  '100.jpeg',
-  'b.jpeg',
-  'WhatsApp Image 2026-03-06 at 10.11.34 PM.jpeg',
+  '5gh.jpeg',
+  '6.jpeg',
+  '7.jpeg',
+  '9.jpeg',
+  '10.jpeg',
+  'a.jpeg',
+  'asdf.jpeg',
+  'aw.jpeg',
+  'bh.jpeg',
+  'bj.jpeg',
+  'cdrcrtg.jpeg',
+  'cx.jpeg',
+  'd.jpeg',
+  'e.jpeg',
+  'fg.jpeg',
+  'fx.jpeg',
+  'fy.jpeg',
+  'g.jpeg',
+  'gc.jpeg',
+  'gfghbgyffghjbu.jpeg',
+  'gty7f.jpeg',
+  'hjbhi.jpeg',
+  'jg.jpeg',
+  'kiyf.jpeg',
+  'm.jpeg',
+  'mb fc.jpeg',
+  'nbytfyuik.jpeg',
+  'oijyfrs.jpeg',
+  'okjnolok.jpeg',
+  'se.jpeg',
+  'sz.jpeg',
+  'uytfderxdfgyhujiol.jpeg',
+  'v.jpeg',
+  'WhatsApp Image 2026-03-13 at 1.32.00 PM.jpeg',
+  'WhatsApp Image 2026-03-13 at 1.32.02 PM.jpeg',
+  'xx.jpeg',
+  'zs.jpeg',
 ].map((name) => ({
   src: `/photos/${encodeURIComponent(name)}`,
   alt: 'Wedding celebration',
@@ -53,7 +80,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-svh flex flex-col items-center justify-center px-6 py-20 overflow-hidden bg-cream"
+      className="relative min-h-svh flex flex-col items-center justify-center px-6 py-20 overflow-hidden bg-cream/90"
       aria-label="Wedding invitation hero"
     >
       {/* Background texture */}
@@ -72,7 +99,7 @@ export default function Hero() {
           className="text-xs tracking-[0.25em] uppercase text-gold font-body font-medium"
           {...motionProps(0)}
         >
-          28 – 30 April · Delhi, India
+          Delhi, India
         </motion.p>
 
         {/* Ornament */}
@@ -119,9 +146,6 @@ export default function Hero() {
         >
           <p className="font-heading text-2xl sm:text-3xl text-text-dark font-medium tracking-wide">
             28<sup>th</sup>–30<sup>th</sup> April
-          </p>
-          <p className="text-sm tracking-[0.2em] uppercase text-text-mid font-body">
-            Delhi, India
           </p>
         </motion.div>
 

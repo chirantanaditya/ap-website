@@ -1,8 +1,8 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion, useReducedMotion } from 'motion/react'
-import { Heart, Sparkles } from 'lucide-react'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -42,9 +42,16 @@ export default function TeamChoice() {
       >
         <Link
           href="/team-bride"
-          className="group flex flex-col items-center justify-center min-h-[140px] sm:min-h-[160px] rounded-2xl border-2 border-border bg-white shadow-sm px-6 py-8 transition-all duration-300 hover:border-maroon hover:shadow-md hover:bg-cream/30 focus-visible:outline-2 focus-visible:outline-maroon focus-visible:outline-offset-2"
+          className="group flex flex-col items-center justify-center min-h-[140px] sm:min-h-[160px] rounded-2xl border-2 border-border bg-[#FFDDE4] shadow-sm px-6 py-8 transition-all duration-300 hover:border-maroon hover:shadow-md hover:bg-[#f5d0d8] focus-visible:outline-2 focus-visible:outline-maroon focus-visible:outline-offset-2"
         >
-          <Sparkles className="w-10 h-10 sm:w-12 sm:h-12 text-text-dark mb-3 group-hover:scale-110 transition-transform" strokeWidth={1.5} aria-hidden />
+          <Image
+            src="/pn-icon.png"
+            alt=""
+            width={128}
+            height={128}
+            className="w-24 h-24 sm:w-28 sm:h-28 object-contain mb-3 group-hover:scale-110 transition-transform"
+            aria-hidden
+          />
           <span className="font-heading text-xl sm:text-2xl italic text-text-dark font-medium">
             Team Bride
           </span>
@@ -53,9 +60,16 @@ export default function TeamChoice() {
 
         <Link
           href="/team-groom"
-          className="group flex flex-col items-center justify-center min-h-[140px] sm:min-h-[160px] rounded-2xl border-2 border-border bg-white shadow-sm px-6 py-8 transition-all duration-300 hover:border-maroon hover:shadow-md hover:bg-cream/30 focus-visible:outline-2 focus-visible:outline-maroon focus-visible:outline-offset-2"
+          className="group flex flex-col items-center justify-center min-h-[140px] sm:min-h-[160px] rounded-2xl border-2 border-border bg-[#FFDDE4] shadow-sm px-6 py-8 transition-all duration-300 hover:border-maroon hover:shadow-md hover:bg-[#f5d0d8] focus-visible:outline-2 focus-visible:outline-maroon focus-visible:outline-offset-2"
         >
-          <Heart className="w-10 h-10 sm:w-12 sm:h-12 text-text-dark mb-3 group-hover:scale-110 transition-transform" strokeWidth={1.5} aria-hidden />
+          <Image
+            src="/ag-icon.png"
+            alt=""
+            width={128}
+            height={128}
+            className="w-24 h-24 sm:w-28 sm:h-28 object-contain mb-3 group-hover:scale-110 transition-transform"
+            aria-hidden
+          />
           <span className="font-heading text-xl sm:text-2xl italic text-text-dark font-medium">
             Team Groom
           </span>
