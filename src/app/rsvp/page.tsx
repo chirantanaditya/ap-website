@@ -17,7 +17,7 @@ export default function RSVPPage() {
       >
         <div className="text-center mb-12">
           <p className="text-xs tracking-[0.25em] uppercase text-gold font-body mb-3">
-            Kindly respond by 20 April
+            Kindly respond at the earliest.
           </p>
           <h1 className="font-heading text-4xl sm:text-5xl italic text-text-dark font-light mb-3">
             RSVP

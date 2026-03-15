@@ -7,9 +7,9 @@ Form submissions can be appended to a Google Sheet using a **Google Apps Script*
 1. Create a new [Google Sheet](https://sheets.google.com).
 2. In the first row, add these column headers (one per cell):
 
-   | A      | B     | C     | D      | E      | F            | G            | H              | I       |
-   |--------|--------|-------|--------|--------|--------------|--------------|----------------|---------|
-   | Timestamp | Team | Name  | Phone  | Guests | Arrival Date | Arrival Time | Accommodation  | Message |
+   | A        | B    | C         | D     | E      | F      | G            | H            | I              | J       |
+   |----------|------|------------|-------|--------|--------|--------------|--------------|----------------|---------|
+   | Timestamp | Team | Attending | Name  | Phone  | Guests | Arrival Date | Arrival Time | Accommodation  | Message |
 
 ## 2. Add the Apps Script
 
@@ -25,6 +25,7 @@ function doPost(e) {
     const row = [
       body.timestamp || new Date().toISOString(),
       body.team || '',
+      body.attending === true ? 'Yes' : 'No',
       body.name || '',
       body.phone || '',
       body.guests ?? '',

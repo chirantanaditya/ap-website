@@ -34,8 +34,8 @@ const schedule: DayCard[] = [
       {
         side: "Bride's Side",
         events: [
-          { time: '10 AM Onwards', label: 'Haldi' },
-          { time: '4 PM Onwards', label: 'Mehendi' },
+          { time: '12 PM Onwards', label: 'Haldi' },
+          { time: '6PM onwards.', label: 'Mehendi' },
         ],
       },
     ],
@@ -47,7 +47,7 @@ const schedule: DayCard[] = [
     emoji: '🌸',
     events: [
       { time: '5 PM Onwards', label: 'Baraat' },
-      { time: '6 PM', label: 'Varmala' },
+      { time: '7PM', label: 'Jaimaal' },
       { time: '8 PM', label: 'Pheras' },
     ],
   },

@@ -13,10 +13,10 @@ Groom Side:
 Haldi - 5 PM Onwards
 Bride Side:
 Haldi - 10 AM Onwards
-Mehendi - 4 PM Onwards
+Mehendi - 6PM onwards.
 30 April, Thursday
 Baraat - 5 PM Onwards
-Varmala - 6 PM
+Jaimaal - 7PM
 Pheras - 8 PM
 
 Venues:

@@ -20,7 +20,7 @@ const venues: Venue[] = [
     description: 'The main celebration venue hosting the Sangeet Night and the Wedding ceremonies.',
     mapUrl: 'https://maps.app.goo.gl/AY1pt43ew5eQ8ejh9?g_st=ic',
     mapLabel: 'View on Google Maps',
-    events: ['Sangeet – 28 Apr', 'Baraat, Varmala & Pheras – 30 Apr'],
+    events: ['Sangeet – 28 Apr', 'Baraat, Jaimaal & Pheras – 30 Apr'],
   },
   {
     id: 'haldi-groom',
@@ -37,8 +37,8 @@ const venues: Venue[] = [
     subtitle: "Sharma's House, Mehrauli",
     description: "All Bride-side ceremonies will be hosted at the Sharma's family residence in Mehrauli.",
     events: [
-      "Haldi – 29 Apr, 10 AM Onwards",
-      'Mehendi – 29 Apr, 4 PM Onwards',
+      "Haldi – 29 Apr, 12 PM Onwards",
+      'Mehendi – 29 Apr, 6PM onwards.',
     ],
   },
 ]

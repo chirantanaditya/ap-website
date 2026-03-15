@@ -77,16 +77,17 @@ export default function CelebrationsTable({ rows }: Props) {
                   <span>{row.venue}</span>
                 )}
               </p>
-              {(row.event === 'Sangeet' || row.event === 'Baraat' || row.event === 'Varmala') && (
-                <p className="text-sm font-body text-text-mid mt-2">
+              {(row.event === 'Sangeet' || row.event === 'Baraat' || row.event === 'Jaimaal') && (
+                <p className="text-sm font-body text-text-mid leading-relaxed mt-2">
                   <button
                     type="button"
                     onClick={() => setDressCodeImage(
                       row.event === 'Sangeet' ? SANGEET_DRESS_CODE_IMAGE : BARAAT_DRESS_CODE_IMAGE
                     )}
-                    className="inline-flex items-center gap-1.5 text-text-dark font-medium hover:underline focus-visible:outline-2 focus-visible:outline-maroon focus-visible:outline-offset-2 rounded"
+                    className="inline-flex items-center gap-1.5 text-text-dark font-medium hover:text-text-dark-light transition-colors focus-visible:outline-2 focus-visible:outline-maroon focus-visible:outline-offset-2 rounded"
                   >
                     Dress Code
+                    <ExternalLink className="w-3.5 h-3.5 shrink-0" strokeWidth={2} aria-hidden />
                   </button>
                 </p>
               )}

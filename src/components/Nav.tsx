@@ -20,7 +20,7 @@ const navItems: NavItem[] = [
   { id: 'schedule', href: '/#team', label: 'Schedule', Icon: Calendar },
   { id: 'registry', href: 'https://withjoy.com/anurag-and-purnima/registry', label: 'Registry', Icon: Gift },
   { id: 'instagram', href: 'https://www.instagram.com/purnimanurag/', label: 'Instagram', Icon: Instagram },
-  { id: 'rsvp', href: '/rsvp', label: 'RSVP', Icon: Heart, highlight: true },
+  { id: 'rsvp', href: '/rsvp', label: 'RSVP', Icon: Heart },
 ]
 
 export default function Nav() {
