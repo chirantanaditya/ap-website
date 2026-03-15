@@ -33,7 +33,10 @@ function TextInput({
   )
 }
 
+const NOT_ATTENDING_MESSAGE = 'Thank you for letting us know!'
+
 function SuccessView({ message }: { message: string }) {
+  const isNotAttending = message === NOT_ATTENDING_MESSAGE
   return (
     <div className="text-center py-12 flex flex-col items-center gap-5">
       <div className="w-16 h-16 rounded-full bg-maroon/10 flex items-center justify-center">
@@ -43,10 +46,10 @@ function SuccessView({ message }: { message: string }) {
       </div>
       <div>
         <h3 className="font-heading text-2xl sm:text-3xl italic text-text-dark font-light mb-2">
-          See you at the celebrations!
+          {isNotAttending ? 'Thank you for letting us know!' : 'See you at the celebrations!'}
         </h3>
         <p className="text-text-mid font-body text-sm leading-relaxed max-w-xs mx-auto">
-          {message}
+          {isNotAttending ? "We'll miss you." : message}
         </p>
       </div>
     </div>

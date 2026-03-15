@@ -24,8 +24,7 @@ export type RSVPEntry = {
 
 const SUCCESS_MESSAGE_ATTENDING = (name: string) =>
   `Thank you, ${name}! Your RSVP has been received. We can't wait to celebrate with you! 🎉`
-const SUCCESS_MESSAGE_NOT_ATTENDING = (name: string) =>
-  `Thank you, ${name}, for letting us know. We'll miss you!`
+const SUCCESS_MESSAGE_NOT_ATTENDING = 'Thank you for letting us know!'
 
 /** Append one row to Google Sheet via Apps Script web app URL */
 async function appendToGoogleSheet(entry: RSVPEntry): Promise<boolean> {
@@ -98,7 +97,7 @@ export async function submitRSVP(
     if (sheetOk) {
       return {
         success: true,
-        message: attending ? SUCCESS_MESSAGE_ATTENDING(name) : SUCCESS_MESSAGE_NOT_ATTENDING(name),
+        message: attending ? SUCCESS_MESSAGE_ATTENDING(name) : SUCCESS_MESSAGE_NOT_ATTENDING,
       }
     }
     // If sheet fails and we're on Vercel/serverless, don't fall back to file
@@ -133,7 +132,7 @@ export async function submitRSVP(
 
     return {
       success: true,
-      message: attending ? SUCCESS_MESSAGE_ATTENDING(name) : SUCCESS_MESSAGE_NOT_ATTENDING(name),
+      message: attending ? SUCCESS_MESSAGE_ATTENDING(name) : SUCCESS_MESSAGE_NOT_ATTENDING,
     }
   } catch (err) {
     console.error('RSVP write error:', err)
