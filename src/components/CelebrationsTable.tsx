@@ -91,6 +91,11 @@ export default function CelebrationsTable({ rows }: Props) {
                   </button>
                 </p>
               )}
+              {row.dressCodeText && (
+                <p className="text-sm font-body text-text-mid leading-relaxed mt-2">
+                  {row.dressCodeText}
+                </p>
+              )}
             </div>
           </motion.article>
         ))}
