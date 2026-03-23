@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { Home, Calendar, Heart, Gift, Instagram, Compass } from 'lucide-react'
+import { Home, Calendar, Heart, Gift, Instagram } from 'lucide-react'
 import { useLenis } from 'lenis/react'
 
 const NAV_OFFSET_PX = 128
@@ -18,7 +18,6 @@ type NavItem = {
 const navItems: NavItem[] = [
   { id: 'home', href: '/', label: 'Home', Icon: Home },
   { id: 'schedule', href: '/#team', label: 'Schedule', Icon: Calendar },
-  { id: 'delhi', href: '/discover-delhi', label: 'Delhi', Icon: Compass },
   { id: 'registry', href: 'https://withjoy.com/anurag-and-purnima/registry', label: 'Registry', Icon: Gift },
   { id: 'instagram', href: 'https://www.instagram.com/purnimanurag/', label: 'Instagram', Icon: Instagram },
   { id: 'rsvp', href: '/rsvp', label: 'RSVP', Icon: Heart },
@@ -27,12 +26,10 @@ const navItems: NavItem[] = [
 export default function Nav() {
   const pathname = usePathname()
   const lenis = useLenis()
-  const isTeamPage = pathname === '/team-bride' || pathname === '/team-groom'
 
   function getHref(item: NavItem): string {
     if (item.id === 'home') return '/'
     if (item.id === 'schedule') return pathname === '/' ? '#team' : '/#team'
-    if (item.id === 'delhi') return '/discover-delhi'
     if (item.id === 'rsvp') return '/rsvp'
     if (item.id === 'registry' || item.id === 'instagram') return item.href
     return item.href
@@ -73,15 +70,6 @@ export default function Nav() {
           if (id === 'schedule' && to === '/#team') {
             return (
               <Link key={id} href="/#team" className={linkClass} aria-label={label}>
-                <Icon className="shrink-0 w-5 h-5 sm:w-4 sm:h-4" strokeWidth={1.75} aria-hidden />
-                <span className="hidden sm:inline">{label}</span>
-              </Link>
-            )
-          }
-
-          if (id === 'delhi') {
-            return (
-              <Link key={id} href="/discover-delhi" className={linkClass} aria-label={label}>
                 <Icon className="shrink-0 w-5 h-5 sm:w-4 sm:h-4" strokeWidth={1.75} aria-hidden />
                 <span className="hidden sm:inline">{label}</span>
               </Link>
