@@ -198,7 +198,7 @@ export default function RSVPForm({ team }: RSVPFormProps) {
                     <span className="text-text-dark ml-0.5" aria-label="required">*</span>
                   </legend>
                   <p className="text-xs text-text-light font-body mb-3">
-                    Check-in: 28 April (Tuesday) · Check-out: 1 May (Friday)
+                    Check-in: 28 April 2026 (Tuesday) · Check-out: 1 May 2026 (Friday)
                   </p>
                   <div className="grid grid-cols-2 gap-3">
                     {[{ value: 'yes', label: 'Yes, please!' }, { value: 'no', label: "No, I'm sorted" }].map((opt) => (
@@ -226,8 +226,8 @@ export default function RSVPForm({ team }: RSVPFormProps) {
                       id="arrivalDate"
                       name="arrivalDate"
                       type="date"
-                      min="2025-04-28"
-                      max="2025-05-01"
+                      min="2026-04-28"
+                      max="2026-05-31"
                       className="w-full min-h-[52px] rounded-xl border border-border bg-white px-4 py-3 text-base text-text-dark font-body focus:outline-none focus:ring-2 focus:ring-maroon/40 focus:border-maroon transition-colors duration-200"
                     />
                   </div>

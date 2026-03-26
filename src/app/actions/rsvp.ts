@@ -12,6 +12,10 @@ export type RSVPEntry = {
   id: string
   timestamp: string
   team: 'bride' | 'groom'
+  /** Same as radio "Will you be joining the celebrations?" — **Yes** / **No** for Google Sheet column */
+  joiningCelebrations: 'Yes' | 'No'
+  /** Raw form value `joining` — **yes** / **no** (mirrors the RSVP page radios) */
+  joining: 'yes' | 'no'
   attending: boolean
   name: string
   phone: string
@@ -26,19 +30,75 @@ const SUCCESS_MESSAGE_ATTENDING = (name: string) =>
   `Thank you, ${name}! Your RSVP has been received. We can't wait to celebrate with you! 🎉`
 const SUCCESS_MESSAGE_NOT_ATTENDING = 'Thank you for letting us know!'
 
-/** Append one row to Google Sheet via Apps Script web app URL */
+const REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308])
+
+/**
+ * POST JSON to a Google Apps Script web app.
+ * script.google.com often responds with 302; default fetch follows with GET and **drops the body**,
+ * so doPost never runs with your payload — fix by replaying POST to each Location URL.
+ */
 async function appendToGoogleSheet(entry: RSVPEntry): Promise<boolean> {
   const url = process.env.GOOGLE_SHEET_WEB_APP_URL
   if (!url?.trim()) return false
 
+  const body = JSON.stringify(entry)
+  let currentUrl = url.trim()
+
   try {
-    const res = await fetch(url.trim(), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(entry),
-    })
-    return res.ok
-  } catch {
+    for (let hop = 0; hop < 8; hop++) {
+      const res = await fetch(currentUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+        },
+        body,
+        redirect: 'manual',
+        cache: 'no-store',
+      })
+
+      if (REDIRECT_STATUSES.has(res.status)) {
+        const loc = res.headers.get('Location')
+        if (!loc) {
+          console.error('[RSVP Google Sheet] Redirect without Location', res.status)
+          return false
+        }
+        currentUrl = new URL(loc, currentUrl).href
+        continue
+      }
+
+      const text = await res.text()
+
+      if (!res.ok) {
+        console.error('[RSVP Google Sheet] HTTP', res.status, text.slice(0, 600))
+        return false
+      }
+
+      const trimmed = text.trimStart()
+      if (trimmed.startsWith('<!') || trimmed.toLowerCase().includes('<html')) {
+        console.error(
+          '[RSVP Google Sheet] Response was HTML (wrong URL, or deployment not set to “Anyone”?).',
+        )
+        return false
+      }
+
+      try {
+        const j = JSON.parse(text) as { success?: boolean; error?: string }
+        if (j.success === false) {
+          console.error('[RSVP Google Sheet] Script error:', j.error ?? text.slice(0, 400))
+          return false
+        }
+      } catch {
+        // Apps Script may return empty or non-JSON on success
+      }
+
+      return true
+    }
+
+    console.error('[RSVP Google Sheet] Too many redirects')
+    return false
+  } catch (e) {
+    console.error('[RSVP Google Sheet] Fetch failed:', e)
     return false
   }
 }
@@ -81,6 +141,8 @@ export async function submitRSVP(
     id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
     timestamp: new Date().toISOString(),
     team,
+    joiningCelebrations: attending ? 'Yes' : 'No',
+    joining: attending ? 'yes' : 'no',
     attending,
     name,
     phone,
