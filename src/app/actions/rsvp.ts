@@ -32,6 +32,26 @@ const SUCCESS_MESSAGE_NOT_ATTENDING = 'Thank you for letting us know!'
 
 const REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308])
 
+function isHtmlResponse(text: string): boolean {
+  const trimmed = text.trimStart().toLowerCase()
+  return trimmed.startsWith('<!') || trimmed.includes('<html')
+}
+
+function parseScriptSuccess(text: string): { ok: boolean; reason?: string } {
+  if (!text.trim()) return { ok: true }
+  if (isHtmlResponse(text)) {
+    return { ok: false, reason: 'HTML response from Apps Script (auth/deployment/URL issue)' }
+  }
+  try {
+    const j = JSON.parse(text) as { success?: boolean; error?: string }
+    if (j.success === false) return { ok: false, reason: j.error ?? 'Apps Script returned success:false' }
+    return { ok: true }
+  } catch {
+    // Some Apps Script deployments can return non-JSON success payloads.
+    return { ok: true }
+  }
+}
+
 /**
  * POST JSON to a Google Apps Script web app.
  * script.google.com often responds with 302; default fetch follows with GET and **drops the body**,
@@ -45,6 +65,28 @@ async function appendToGoogleSheet(entry: RSVPEntry): Promise<boolean> {
   let currentUrl = url.trim()
 
   try {
+    // Strategy 1: regular follow-mode POST (works in some environments).
+    const direct = await fetch(currentUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+      },
+      body,
+      redirect: 'follow',
+      cache: 'no-store',
+    })
+
+    const directText = await direct.text()
+    if (direct.ok) {
+      const parsed = parseScriptSuccess(directText)
+      if (parsed.ok) return true
+      console.error('[RSVP Google Sheet] Follow-mode response issue:', parsed.reason)
+    } else {
+      console.error('[RSVP Google Sheet] Follow-mode HTTP', direct.status, directText.slice(0, 600))
+    }
+
+    // Strategy 2: manual redirect chain preserving POST/body for every hop.
     for (let hop = 0; hop < 8; hop++) {
       const res = await fetch(currentUrl, {
         method: 'POST',
@@ -74,22 +116,10 @@ async function appendToGoogleSheet(entry: RSVPEntry): Promise<boolean> {
         return false
       }
 
-      const trimmed = text.trimStart()
-      if (trimmed.startsWith('<!') || trimmed.toLowerCase().includes('<html')) {
-        console.error(
-          '[RSVP Google Sheet] Response was HTML (wrong URL, or deployment not set to “Anyone”?).',
-        )
+      const parsed = parseScriptSuccess(text)
+      if (!parsed.ok) {
+        console.error('[RSVP Google Sheet] Manual-mode response issue:', parsed.reason)
         return false
-      }
-
-      try {
-        const j = JSON.parse(text) as { success?: boolean; error?: string }
-        if (j.success === false) {
-          console.error('[RSVP Google Sheet] Script error:', j.error ?? text.slice(0, 400))
-          return false
-        }
-      } catch {
-        // Apps Script may return empty or non-JSON on success
       }
 
       return true
