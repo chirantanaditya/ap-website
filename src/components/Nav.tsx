@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { Home, Calendar, Heart, Gift, Instagram } from 'lucide-react'
+import { Home, Compass, Calendar, Heart, Gift, Instagram } from 'lucide-react'
 import { useLenis } from 'lenis/react'
 
 const NAV_OFFSET_PX = 128
@@ -17,6 +17,7 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   { id: 'home', href: '/', label: 'Home', Icon: Home },
+  { id: 'discover-delhi', href: '/discover-delhi', label: 'Discover Delhi', Icon: Compass },
   { id: 'schedule', href: '/#team', label: 'Schedule', Icon: Calendar },
   { id: 'registry', href: 'https://withjoy.com/anurag-and-purnima/registry', label: 'Registry', Icon: Gift },
   { id: 'instagram', href: 'https://www.instagram.com/purnimanurag/', label: 'Instagram', Icon: Instagram },
@@ -31,6 +32,7 @@ export default function Nav() {
     if (item.id === 'home') return '/'
     if (item.id === 'schedule') return pathname === '/' ? '#team' : '/#team'
     if (item.id === 'rsvp') return '/rsvp'
+    if (item.id === 'discover-delhi') return '/discover-delhi'
     if (item.id === 'registry' || item.id === 'instagram') return item.href
     return item.href
   }
@@ -61,6 +63,15 @@ export default function Nav() {
           if (id === 'home') {
             return (
               <Link key={id} href={to} className={linkClass} aria-label={label}>
+                <Icon className="shrink-0 w-5 h-5 sm:w-4 sm:h-4" strokeWidth={1.75} aria-hidden />
+                <span className="hidden sm:inline">{label}</span>
+              </Link>
+            )
+          }
+
+          if (id === 'discover-delhi') {
+            return (
+              <Link key={id} href="/discover-delhi" className={linkClass} aria-label={label}>
                 <Icon className="shrink-0 w-5 h-5 sm:w-4 sm:h-4" strokeWidth={1.75} aria-hidden />
                 <span className="hidden sm:inline">{label}</span>
               </Link>

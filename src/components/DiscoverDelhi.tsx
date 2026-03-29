@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import { motion, useReducedMotion } from 'motion/react'
-import { CardCarousel, TextCoverflowCarousel } from '@/components/ui/card-carousel'
 import type { PlaceCard } from '@/data/discover-delhi'
 import {
   ICONIC_DELHI,
@@ -56,52 +55,32 @@ function SectionHeading({
   )
 }
 
-function placeCardsToCarouselImages(cards: PlaceCard[]) {
-  return cards.map((c) => ({ src: c.imageSrc, alt: c.imageAlt, title: c.title }))
-}
-
-function DiscoverCarouselSection({
+function DiscoverPlaceListSection({
   sectionId,
   title,
   subtext,
-  ariaLabel,
   cards,
   reduced,
-  autoplayDelay = 2500,
 }: {
   sectionId: string
   title: string
   subtext: string
-  ariaLabel: string
   cards: PlaceCard[]
   reduced: boolean
-  autoplayDelay?: number
 }) {
   return (
     <section aria-labelledby={sectionId}>
       <SectionHeading id={sectionId} title={title} subtext={subtext} reduced={reduced} />
-      {reduced ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {cards.map((card, i) => (
-            <PlaceCardItem
-              key={`${sectionId}-${card.title}-${i}`}
-              card={card}
-              index={i}
-              reduced={reduced}
-            />
-          ))}
-        </div>
-      ) : (
-        <motion.div
-          className="mt-6 w-screen max-w-none ml-[calc(-50vw+50%)]"
-          role="region"
-          aria-roledescription="carousel"
-          aria-label={ariaLabel}
-          {...revealProps(0.05, reduced)}
-        >
-          <CardCarousel images={placeCardsToCarouselImages(cards)} autoplayDelay={autoplayDelay} />
-        </motion.div>
-      )}
+      <motion.ul
+        className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 list-none p-0 m-0"
+        {...revealProps(0.05, reduced)}
+      >
+        {cards.map((card, i) => (
+          <li key={`${sectionId}-${card.title}-${i}`} className="min-w-0">
+            <PlaceCardItem card={card} index={i} reduced={reduced} />
+          </li>
+        ))}
+      </motion.ul>
     </section>
   )
 }
@@ -113,20 +92,35 @@ function PlaceCardItem({ card, index, reduced }: { card: PlaceCard; index: numbe
       {...revealProps(index * 0.05, reduced)}
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-cream-dark">
-        <Image
-          src={card.imageSrc}
-          alt={card.imageAlt}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-        />
+        <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-[1.03]">
+          <Image
+            src={card.imageSrc}
+            alt={card.imageAlt}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover"
+          />
+          {card.imageHoverSrc ? (
+            <Image
+              src={card.imageHoverSrc}
+              alt=""
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 pointer-events-none"
+              aria-hidden
+            />
+          ) : null}
+        </div>
         <div
-          className="absolute inset-0 bg-gradient-to-t from-text-dark/25 via-transparent to-transparent opacity-60 pointer-events-none"
+          className="absolute inset-0 z-[1] bg-gradient-to-t from-text-dark/25 via-transparent to-transparent opacity-60 pointer-events-none"
           aria-hidden
         />
       </div>
       <div className="px-4 py-4 sm:px-5 sm:py-5">
         <h3 className="font-heading text-lg sm:text-xl font-medium text-text-dark leading-snug">{card.title}</h3>
+        {card.subtitle ? (
+          <p className="mt-1.5 text-xs sm:text-sm font-body text-text-mid leading-snug">{card.subtitle}</p>
+        ) : null}
       </div>
     </motion.article>
   )
@@ -168,104 +162,99 @@ export default function DiscoverDelhi() {
       </section>
 
       <div className="max-w-6xl mx-auto px-5 space-y-20 sm:space-y-28">
-        <DiscoverCarouselSection
+        <DiscoverPlaceListSection
           sectionId="iconic-delhi-heading"
           title="Iconic Delhi"
           subtext="If it’s your first time in Delhi, don’t miss these."
-          ariaLabel="Iconic Delhi landmarks"
           cards={ICONIC_DELHI}
           reduced={reduced ?? false}
-          autoplayDelay={2500}
         />
 
-        <DiscoverCarouselSection
+        <DiscoverPlaceListSection
           sectionId="art-culture-heading"
           title="Art & Culture"
           subtext="For slower, more thoughtful moments."
-          ariaLabel="Art and culture in Delhi"
           cards={ART_CULTURE}
           reduced={reduced ?? false}
-          autoplayDelay={2600}
         />
 
-        {/* Eat like a local — text slides in same coverflow */}
         <section aria-labelledby="eat-local-heading">
           <SectionHeading
             id="eat-local-heading"
             title="Eat Like a Local"
-            subtext="Delhi is a food city — come hungry."
+            subtext="Delhi is a food city — come hungry. When the celebrations continue, a few cafes and neighbourhoods we love."
             reduced={reduced ?? false}
           />
-          {reduced ? (
+          <motion.div
+            className="mt-6 space-y-14 sm:space-y-16"
+            {...revealProps(0.05, reduced ?? false)}
+          >
+            {EAT_LOCAL.map((group, gi) => (
+              <div key={group.heading}>
+                <h3 className="font-heading text-xl sm:text-2xl font-medium text-text-dark mb-6 sm:mb-8 pb-3 border-b border-border/80 text-center sm:text-left">
+                  {group.heading}
+                </h3>
+                <ul
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 list-none p-0 m-0"
+                  aria-label={group.heading}
+                >
+                  {group.cards.map((card, i) => (
+                    <li key={`eat-${group.heading}-${card.title}-${i}`} className="min-w-0">
+                      <PlaceCardItem
+                        card={card}
+                        index={gi * 6 + i}
+                        reduced={reduced ?? false}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </motion.div>
+
+          <div className="mt-14 sm:mt-16">
             <motion.div
-              className="max-w-3xl mx-auto rounded-2xl border border-border bg-white/80 backdrop-blur-sm shadow-sm px-6 py-8 sm:px-10 sm:py-10 space-y-10"
-              {...revealProps(0.05, reduced ?? false)}
+              className="text-center max-w-2xl mx-auto mb-8 sm:mb-10"
+              {...revealProps(0.08, reduced ?? false)}
             >
-              {EAT_LOCAL.map((group) => (
-                <div key={group.heading}>
-                  <h3 className="font-heading text-xl font-medium text-text-dark mb-4 pb-2 border-b border-border/80">
-                    {group.heading}
-                  </h3>
-                  <ul className="space-y-3 font-body text-sm sm:text-base text-text-mid leading-relaxed">
-                    {group.items.map((item) => (
-                      <li key={item} className="flex gap-3">
-                        <span className="text-gold shrink-0 mt-1.5" aria-hidden>
-                          ◆
-                        </span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <h3
+                id="cafes-nightlife-heading"
+                className="font-heading text-2xl sm:text-3xl italic text-text-dark font-light mb-3"
+              >
+                Cafes &amp; Nightlife
+              </h3>
+              <p className="text-sm sm:text-base text-text-mid font-body leading-relaxed">
+                For when the celebrations continue…
+              </p>
+            </motion.div>
+            <motion.ul
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 list-none p-0 m-0"
+              aria-labelledby="cafes-nightlife-heading"
+              {...revealProps(0.1, reduced ?? false)}
+            >
+              {CAFES_NIGHTLIFE.map((card, i) => (
+                <li key={`cafes-${card.title}-${i}`} className="min-w-0">
+                  <PlaceCardItem card={card} index={i} reduced={reduced ?? false} />
+                </li>
               ))}
-            </motion.div>
-          ) : (
-            <motion.div
-              className="mt-6 w-screen max-w-none ml-[calc(-50vw+50%)]"
-              role="region"
-              aria-roledescription="carousel"
-              aria-label="Eat like a local"
-              {...revealProps(0.05, reduced ?? false)}
-            >
-              <TextCoverflowCarousel
-                slides={EAT_LOCAL.map((g) => ({
-                  heading: g.heading,
-                  items: [...g.items],
-                }))}
-                autoplayDelay={2700}
-              />
-            </motion.div>
-          )}
+            </motion.ul>
+          </div>
         </section>
 
-        <DiscoverCarouselSection
-          sectionId="cafes-heading"
-          title="Cafes & Nightlife"
-          subtext="For when the celebrations continue…"
-          ariaLabel="Cafes and nightlife"
-          cards={CAFES_NIGHTLIFE}
-          reduced={reduced ?? false}
-          autoplayDelay={2800}
-        />
-
-        <DiscoverCarouselSection
+        <DiscoverPlaceListSection
           sectionId="shop-heading"
           title="Shop & Wander"
           subtext="Take a little bit of Delhi back with you."
-          ariaLabel="Shopping in Delhi"
           cards={SHOP_WANDER}
           reduced={reduced ?? false}
-          autoplayDelay={2900}
         />
 
-        <DiscoverCarouselSection
+        <DiscoverPlaceListSection
           sectionId="fun-heading"
           title="For the Fun Seekers"
           subtext="If you’ve got extra time (or energy after the wedding)"
-          ariaLabel="Fun activities in Delhi"
           cards={FUN_SEEKERS}
           reduced={reduced ?? false}
-          autoplayDelay={3000}
         />
       </div>
     </div>
